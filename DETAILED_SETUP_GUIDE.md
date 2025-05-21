@@ -18,31 +18,26 @@ After following this guide, you'll have:
 
 **Estimated setup time:** 15-30 minutes, depending on download speeds.
 
-## Quick Start (Most Foolproof Method)
+## Quick Start (One-Command Setup)
 
-**Only two real prerequisites:**
-
-* Docker & Docker Compose installed ([Get Docker Desktop](https://www.docker.com/products/docker-desktop/))
-* Git installed ([Git installation guide](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git))
-
-**Just copy-paste these commands:**
+We've created a true one-command setup that handles everything automatically:
 
 ```bash
 # 1. Clone the repository
 git clone https://github.com/district0x/ethlance.git
 cd ethlance
 
-# 2. Make scripts executable
-chmod +x setup.sh start.sh stop.sh
-
-# 3. Run the setup script (this handles EVERYTHING else)
-./setup.sh
-
-# 4. Start Ethlance
-./start.sh
+# 2. Run the ONE-COMMAND setup (does everything)
+chmod +x ethlance-setup.sh && ./ethlance-setup.sh
 ```
 
-**That's it!** Open http://localhost:6500/index.html in your browser.
+That's it! This will:
+
+* Install all prerequisites (Docker, Node.js, etc.)
+* Configure your environment
+* Start all necessary services
+* Deploy smart contracts
+* Open the application in your browser.
 
 ## Complete Prerequisites List
 

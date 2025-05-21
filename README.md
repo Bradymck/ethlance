@@ -7,43 +7,45 @@ change before final release*
 
 # Development
 
-## Quick Start (Turn-key Setup)
+## Quick Start (True One-Command Setup)
 
-We now provide a truly turn-key setup process for getting Ethlance running locally with minimal effort.
+We now provide a genuine one-command setup process for getting Ethlance running locally. It's completely automated and handles everything for you.
 
-### Prerequisites
+### Minimal Prerequisites
 
-Before starting, ensure you have these essential tools installed:
+Before starting, ensure you have these bare essentials:
 
-* **Docker & Docker Compose** - Required for infrastructure containers
 * **Git** - For cloning the repository
-* **Node.js & npm** (v16 or higher) - For JavaScript dependencies
 
-### Fresh Installation
+Our setup script automatically installs or configures everything else, including Docker if needed.
+
+### One-Command Installation
 
 ```bash
 # 1. Clone the repository
 git clone https://github.com/district0x/ethlance.git
 cd ethlance
 
-# 2. Make scripts executable
-chmod +x setup.sh start.sh stop.sh
-
-# 3. Run the setup script (this will install all other dependencies)
-./setup.sh
-
-# 4. Start Ethlance
-./start.sh
-
-# 5. Access in your browser
-# http://localhost:6500/index.html
+# 2. Run the ONE-COMMAND setup (does everything)
+chmod +x ethlance-setup.sh && ./ethlance-setup.sh
 ```
 
-The setup script handles everything else automatically, including:
-- Installing required tools (SDKMAN, Java, Clojure, Babashka)
-- Creating all necessary configuration files
-- Deploying smart contracts
-- Fixing hostname references
+That's it! The script will:
+* Check and install missing prerequisites
+* Start Docker if not running
+* Install correct Node.js version
+* Configure all components
+* Deploy contracts (with auto-retry)
+* Handle port conflicts
+* Open the application in your browser
+
+If you prefer more control over the process, you can still use the individual scripts:
+
+```bash
+chmod +x setup.sh start.sh stop.sh
+./setup.sh
+./start.sh
+```
 
 For complete details, see our [Detailed Setup Guide](./DETAILED_SETUP_GUIDE.md) which walks through every step of the process.
 
