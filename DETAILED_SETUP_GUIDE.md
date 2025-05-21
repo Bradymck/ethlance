@@ -9,17 +9,44 @@ Ethlance is a decentralized freelance marketplace built on Ethereum. It allows f
 ## Setup Overview
 
 After following this guide, you'll have:
-- A local Ethereum blockchain (Ganache) with Ethlance contracts deployed
-- A local IPFS node for decentralized storage
-- A PostgreSQL database 
-- The Ethlance UI running locally
-- A configuration server to support the UI
+
+* A local Ethereum blockchain (Ganache) with Ethlance contracts deployed
+* A local IPFS node for decentralized storage
+* A PostgreSQL database
+* The Ethlance UI running locally
+* A configuration server to support the UI
 
 **Estimated setup time:** 15-30 minutes, depending on download speeds.
 
-## Prerequisites
+## Quick Start (Most Foolproof Method)
 
-Before starting, ensure you have the following installed:
+**Only two real prerequisites:**
+
+* Docker & Docker Compose installed ([Get Docker Desktop](https://www.docker.com/products/docker-desktop/))
+* Git installed ([Git installation guide](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git))
+
+**Just copy-paste these commands:**
+
+```bash
+# 1. Clone the repository
+git clone https://github.com/district0x/ethlance.git
+cd ethlance
+
+# 2. Make scripts executable
+chmod +x setup.sh start.sh stop.sh
+
+# 3. Run the setup script (this handles EVERYTHING else)
+./setup.sh
+
+# 4. Start Ethlance
+./start.sh
+```
+
+**That's it!** Open http://localhost:6500/index.html in your browser.
+
+## Complete Prerequisites List
+
+*Note: You don't need to manually install most of these - the setup script will install them for you if missing.*
 
 | Tool | Purpose | Installation Command | Verification |
 |------|---------|---------------------|-------------|
@@ -29,7 +56,8 @@ Before starting, ensure you have the following installed:
 | SDKMAN! | Java version management | `curl -s "https://get.sdkman.io" \| bash` then `source "$HOME/.sdkman/bin/sdkman-init.sh"` | `sdk version` |
 | Java (JDK) | Required by Clojure | Via SDKMAN: `sdk install java 21-tem` | `java -version` |
 | Clojure | Programming language | Via SDKMAN: `sdk install clojure` | `clojure -e '(println "Hello")'` |
-| Babashka | Clojure scripting tool | macOS: `brew install babashka/tap/babashka`<br>Other: [Installation guide](https://github.com/babashka/babashka#installation) | `bb --version` |
+| Babashka | Clojure scripting tool | macOS: `brew install babashka/tap/babashka`
+Other: [Installation guide](https://github.com/babashka/babashka#installation) | `bb --version` |
 | LESS Compiler | CSS preprocessing | `npm install -g less` | `lessc --version` |
 | Truffle | Smart contract deployment | `npm install -g truffle` | `truffle version` |
 

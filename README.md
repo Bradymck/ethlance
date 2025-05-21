@@ -9,20 +9,41 @@ change before final release*
 
 ## Quick Start (Turn-key Setup)
 
-We now provide a turn-key setup process for getting Ethlance running locally with minimal effort:
+We now provide a truly turn-key setup process for getting Ethlance running locally with minimal effort.
 
-1. **Run the setup script:**
-   ```bash
-   ./setup.sh
-   ```
+### Prerequisites
 
-2. **Start Ethlance:**
-   ```bash
-   ./start.sh
-   ```
+Before starting, ensure you have these essential tools installed:
 
-3. **Access in your browser:**
-   http://localhost:6500/index.html
+* **Docker & Docker Compose** - Required for infrastructure containers
+* **Git** - For cloning the repository
+* **Node.js & npm** (v16 or higher) - For JavaScript dependencies
+
+### Fresh Installation
+
+```bash
+# 1. Clone the repository
+git clone https://github.com/district0x/ethlance.git
+cd ethlance
+
+# 2. Make scripts executable
+chmod +x setup.sh start.sh stop.sh
+
+# 3. Run the setup script (this will install all other dependencies)
+./setup.sh
+
+# 4. Start Ethlance
+./start.sh
+
+# 5. Access in your browser
+# http://localhost:6500/index.html
+```
+
+The setup script handles everything else automatically, including:
+- Installing required tools (SDKMAN, Java, Clojure, Babashka)
+- Creating all necessary configuration files
+- Deploying smart contracts
+- Fixing hostname references
 
 For complete details, see our [Detailed Setup Guide](./DETAILED_SETUP_GUIDE.md) which walks through every step of the process.
 

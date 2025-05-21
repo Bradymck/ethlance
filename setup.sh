@@ -1,10 +1,68 @@
 #!/bin/bash
+
+# Exit on any error
 set -e
 
 echo "===== Ethlance Setup Script ====="
 
+# Function to check if a command is available
+check_command() {
+  if ! command -v "$1" &> /dev/null; then
+    echo "ERROR: Required command '$1' not found."
+    echo "Please install $2 before continuing."
+    exit 1
+  fi
+}
+
+# Check essential prerequisites
+echo "Checking prerequisites..."
+check_command "docker" "Docker"
+check_command "docker-compose" "Docker Compose"
+check_command "node" "Node.js"
+check_command "npm" "npm"
+
 # Create logs directory
 mkdir -p logs
+echo "Created logs directory."
+
+# Create config directory if it doesn't exist
+mkdir -p config
+
+# Create server configuration file if it doesn't exist
+if [ ! -f config/server-config-dev.edn ]; then
+  echo "Creating server configuration file..."
+  cat > config/server-config-dev.edn << 'EOL'
+{:district/db {:adapter "postgresql"
+                  :database-name "postgres"
+                  :username "postgres"
+                  :password "postgres"
+                  :server-name "localhost"
+                  :port-number 5432}
+ :ipfs {:host "localhost"
+       :gateway "http://localhost:8080/ipfs/"
+       :endpoint "http://localhost:5001"}
+ :web3 {:url "http://localhost:8545"}
+ :logging {:level :info
+          :console? true}
+ :graphql {:port 6300
+          :path "/graphql"
+          :graphiql true
+          :resources-opts {:dev-config {:schema-path "./schemas/ethlance.graphql"}}}
+ :web3-events {:retry-interval 1000
+              :try-interval 1000
+              :log-events-task-opts {:disable-using-graph-listening? true}}}
+EOL
+fi
+
+# Create UI configuration file if it doesn't exist
+if [ ! -f config/ui-config-dev.edn ]; then
+  echo "Creating UI configuration file..."
+  cat > config/ui-config-dev.edn << 'EOL'
+{:web3-provider "ws://localhost:8545"
+ :graphql-url "http://localhost:6300/graphql"
+ :ipfs-gateway "http://localhost:8080/ipfs/"}
+EOL
+fi
 
 echo "Installing dependencies..."
 npm install
@@ -19,6 +77,13 @@ docker-compose -f docker-compose-simple.yml up -d
 
 echo "Waiting for infrastructure to be ready..."
 sleep 10
+
+echo "Testing connection to Ganache..."
+if ! curl -s -X POST -H "Content-Type: application/json" --data '{"jsonrpc":"2.0","method":"net_version","params":[],"id":1}' http://localhost:8545 > /dev/null; then
+  echo "ERROR: Cannot connect to Ganache at http://localhost:8545"
+  echo "Please check that Docker containers are running properly."
+  exit 1
+fi
 
 echo "Deploying smart contracts..."
 npx truffle migrate --network ganache --reset
