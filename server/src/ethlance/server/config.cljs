@@ -32,7 +32,7 @@
 
 (def default-config
   {:web3
-   {:url  "ws://127.0.0.1:8549"
+   {:url  "ws://127.0.0.1:8545"
     ; :on-offline (fn [] (log/info "Went OFFLINE"))
     ; :on-online (fn [] (log/info "Back ONLINE"))
     :on-offline (fn []

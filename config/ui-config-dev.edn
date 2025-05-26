@@ -1,3 +1,4 @@
 {:web3-provider "ws://localhost:8545"
  :graphql-url "http://localhost:6300/graphql"
- :ipfs-gateway "http://localhost:8080/ipfs/"}
+ :ipfs-gateway "http://localhost:8080/ipfs/"
+ :ethgasstation-enabled false}
