@@ -73,8 +73,8 @@
         (do
           (.log js/console "Warning: Received incomplete session data")
           (-> cofx
-              (assoc-in ,,, [:db :active-session] nil)
-              (assoc ,,, :fx [[:dispatch [::logging.events/error "Failed to receive proper authentication data"]]]))))))
+              (assoc-in [:db :active-session] nil)
+              (assoc :fx [[:dispatch [::logging.events/error "Failed to receive proper authentication data"]]]))))))
 
 ;; Intermediates
 (re/reg-event-fx
