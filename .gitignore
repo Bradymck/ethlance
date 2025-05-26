@@ -24,3 +24,4 @@ ethlance_codebase.md
 logs/
 .config-server.pid
 .DS_Store
+.ethlance-pids
