@@ -25,3 +25,4 @@ logs/
 .config-server.pid
 .DS_Store
 .ethlance-pids
+ui/src/ethlance/ui/event/sign_in.cljs
