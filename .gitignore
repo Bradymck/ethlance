@@ -16,3 +16,5 @@ temp
 release
 .clj-kondo
 .lsp
+.ethlance-pids
+logs/
