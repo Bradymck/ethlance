@@ -38,7 +38,7 @@
               :data-str data-str
               :from active-account
               :on-success [:user/-authenticate {:data-str data-str}]
-              :on-error [::sign-in-error]}})))))
+              :on-error [::sign-in-error]}}))))))
 
 (re/reg-event-fx
   ::sign-in-error
@@ -67,14 +67,14 @@
           user-id (get-in event-data [:sign-in :user/id])]
       (if (and jwt user-id)
         (-> cofx
-            (assoc-in ,,, [:db :active-session] {:jwt jwt :user/id user-id})
-            (assoc ,,, :store {:jwt jwt :user/id user-id})
-            (assoc ,,, :fx [[:dispatch [:district.ui.graphql.events/set-authorization-token jwt]]]))
+            (assoc-in [:db :active-session] {:jwt jwt :user/id user-id})
+            (assoc :store {:jwt jwt :user/id user-id})
+            (assoc :fx [[:dispatch [:district.ui.graphql.events/set-authorization-token jwt]]]))
         (do
           (.log js/console "Warning: Received incomplete session data")
           (-> cofx
               (assoc-in [:db :active-session] nil)
-              (assoc :fx [[:dispatch [::logging.events/error "Failed to receive proper authentication data"]]]))))))
+              (assoc :fx [[:dispatch [::logging.events/error "Failed to receive proper authentication data"]]])))))))
 
 ;; Intermediates
 (re/reg-event-fx
