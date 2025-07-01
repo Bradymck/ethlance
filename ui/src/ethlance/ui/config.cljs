@@ -54,10 +54,11 @@
     :default-route :route/home
     :scroll-top? true
     :html5? true}
-   :web3-tx {:disable-using-localstorage? true}
+   :web3-tx {:disable-using-localstorage? true
+             :disable-loading-recommended-gas-prices? true}
    :graphql
    {:schema schema
-    :url "http://d0x-vm:6300/graphql"
+    :url "http://localhost:6300/graphql"
     :jwt-sign-secret "SECRET"
     :gql-name->kw token-type-fixed-gql-name->kw}
 
