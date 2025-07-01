@@ -1,0 +1,19 @@
+{:default
+ {:smart-contracts {:contracts-var contracts-var
+                    :contracts-build-path "../resources/public/contracts/build"
+                    :print-gas-usage? false
+                    :auto-mining? false}
+  :graphql {:port 6300
+            :sign-in-secret "SECRET"
+            :graphiql true}
+  :district/db {:user "ethlanceuser_new"
+                :host "localhost"
+                :database "ethlance_new"
+                :password "pass_new"
+                :port 5432}
+  :ethlance/db {:resync? false}
+  :ipfs {:host "http://127.0.0.1:5001"
+         :endpoint "/api/v0"
+         :gateway "http://127.0.0.1:8080/ipfs"}
+  :logging {:level "debug"
+            :console? true}}}

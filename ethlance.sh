@@ -43,6 +43,17 @@ compile_css() {
   fi
 }
 
+# Function to deploy smart contracts
+deploy_contracts() {
+  echo "Deploying smart contracts..."
+  npx truffle migrate --network ganache --reset > logs/contracts.log 2>&1
+  if [ $? -ne 0 ]; then
+    echo " Contract deployment failed. Check logs/contracts.log"
+    stop_services
+    exit 1
+  fi
+}
+
 # Function to start all services
 start_services() {
   # Stop any existing services
@@ -62,12 +73,8 @@ start_services() {
 
   # Start Ganache
   if ! curl -s -X POST -H "Content-Type: application/json" --data '{"jsonrpc":"2.0","method":"net_version","params":[],"id":1}' http://localhost:8545 > /dev/null; then
-    echo "Starting Ganache..."
-    npx ganache --database.dbPath=./temp/ganache-db --logging.verbose \
-      --wallet.mnemonic "easy leave proof verb wait patient fringe laptop intact opera slab shine" \
-      --server.host 0.0.0.0 --server.port 8545 --miner.blockGasLimit 20000000 \
-      --chain.allowUnlimitedContractSize true --miner.blockTime=0 \
-      --chain.vmErrorsOnRPCResponse --chain.chainId 1 --chain.networkId 1 > logs/ganache.log 2>&1 &
+    echo "Starting Ganache with bb testnet-dev..."
+    bb testnet-dev > logs/ganache.log 2>&1 &
     GANACHE_PID=$!
     echo "Ganache started with PID $GANACHE_PID"
 
