@@ -71,8 +71,8 @@
 
 (def config-dev
   {:logging {:level :debug}
-   :web3 {:url "http://d0x-vm:8549"} ; "https://mainnet.infura.io/"
-   :server-config {:url "http://d0x-vm:6300/config" :format :json}})
+   :web3 {:url "http://localhost:8549"} ; "https://mainnet.infura.io/"
+   :server-config {:url "http://localhost:6300/config" :format :json}})
 
 
 (def config-qa
