@@ -5,4 +5,6 @@
          :endpoint "/api/v0"
          :gateway "http://127.0.0.1:8080/ipfs"}
   :logging {:level "debug"
-            :console? true}}}
+            :console? true}
+  :web3-tx {:disable-loading-recommended-gas-prices? true
+            :disable-using-localstorage? true}}}
