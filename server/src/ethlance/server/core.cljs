@@ -7,7 +7,7 @@
     [district.server.db.honeysql-extensions]
     [district.server.logging]
     [district.server.smart-contracts]
-    [ethlance.server.tracing.core]
+    ; [ethlance.server.tracing.core] ; Disabled due to OpenTelemetry startup issues
     [district.server.web3]
     [district.server.web3-events]
     [district.shared.async-helpers :as async-helpers :refer [safe-go]]
@@ -32,8 +32,28 @@
                                {:config
                                 {:env-name "SERVER_CONFIG_PATH"
                                  :default (server-config/env-config server-config/environment)}})
+                             (mount/only [#'district.server.logging/logging
+                                          #'district.server.async-db/db
+                                          #'district.server.config/config
+                                          #'district.server.web3/web3
+                                          #'district.server.web3-events/web3-events
+                                          #'district.server.smart-contracts/smart-contracts
+                                          #'ethlance.server.db/ethlance-db
+                                          #'ethlance.server.graphql.server/graphql
+                                          #'ethlance.server.ipfs/ipfs
+                                          #'ethlance.server.syncer/syncer])
                              (mount/start))]
-        (log/warn "Started" {:components start-result :config @district-config/config}))
+        (log/warn "Started" {:components start-result :config @district-config/config})
+        ;; Keep the process alive
+        (.on js/process "SIGINT" (fn [] 
+                                   (log/info "Received SIGINT, shutting down gracefully...")
+                                   (mount/stop)
+                                   (js/process.exit 0)))
+        (.on js/process "SIGTERM" (fn [] 
+                                    (log/info "Received SIGTERM, shutting down gracefully...")
+                                    (mount/stop)
+                                    (js/process.exit 0)))
+        (log/info "Server running. Press Ctrl+C to stop."))
       (catch js/Error e
         (log/error "Something went wrong when starting the application" {:error e})))))
 

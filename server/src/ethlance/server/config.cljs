@@ -83,15 +83,15 @@
    :graphql {:port 6300
              :sign-in-secret "SECRET"
              :graphiql (= environment "dev")}
-   :district/db {:user "ethlanceuser"
+   :district/db {:user "ethlanceuser_new"
                  :host "localhost"
-                 :database "ethlance"
-                 :password "pass"
+                 :database "ethlance_new"
+                 :password "pass_new"
                  :port 5432}
    :ethlance/db {:resync? false}
-   :ipfs {:host "http://host-machine:5001"
+   :ipfs {:host "http://127.0.0.1:5001"
           :endpoint "/api/v0"
-          :gateway "http://host-machine:8080/ipfs"}
+          :gateway "http://127.0.0.1:8080/ipfs"}
    :logging {:level "debug"
              :console? true}})
 

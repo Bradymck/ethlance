@@ -15,7 +15,7 @@
     [district.shared.async-helpers :refer [<? safe-go]]
     [ethlance.server.db :as ethlance-db]
     [ethlance.server.event-replay-queue :as replay-queue]
-    [ethlance.server.tracing.api :as t-api]
+    ; [ethlance.server.tracing.api :as t-api] ; Disabled due to OpenTelemetry issues
     [ethlance.server.syncer.handlers :as handlers]
     [ethlance.shared.utils :as shared-utils]
     [mount.core :as mount :refer [defstate]]
@@ -68,7 +68,7 @@
                 event-name (name event-key)
                 log-index (-> event :log-index)
                 handler (get contract-ev->handler [contract-key event-key])
-                span (t-api/start-span (str (name (or contract-key "UnnamedContract")) "." (name (or event-key "UnnamedEvent"))))
+                ; span (t-api/start-span (str (name (or contract-key "UnnamedContract")) "." (name (or event-key "UnnamedEvent"))))
                 conn (<? (db/get-connection))]
             (try
               (let [block-timestamp (<? (block-timestamp block-number))
@@ -87,8 +87,8 @@
                 (if (or (> block-number last-block-number)
                         (and (= block-number last-block-number) (> log-index last-log-index)))
                   (let [_ (db/begin-tx conn)
-                        res (t-api/with-span-context span #(handler conn err event))]
-                    (t-api/set-span-ok! span)
+                        res (handler conn err event)] ; was: (t-api/with-span-context span #(handler conn err event))]
+                     ; (t-api/set-span-ok! span)
                     ;; Calling a handler can throw or return a go block (when using safe-go)
                     ;; in the case of async ones, the go block will return the js/Error.
                     ;; In either cases push the event to the queue, so it can be replayed later
@@ -103,16 +103,16 @@
                                                              :event/contract-key (name contract-key)}))
                         (db/commit-tx conn)
                         (log/info "Handled new event" event)
-                        (t-api/set-span-ok! span)
-                        (t-api/end-span! span)
+                        ; (t-api/set-span-ok! span)
+                        ; (t-api/end-span! span)
                         (log/info "Syncer: OK" r)
                         r)))
                   (log/info "Skipping handling of a persisted event" event)))
               (catch js/Error error
                 (log/error "Syncer: ERROR" error)
                 (replay-queue/push-event conn event)
-                (t-api/set-span-error! span error)
-                (t-api/end-span! span)
+                ; (t-api/set-span-error! span error)
+                ; (t-api/end-span! span)
                 (db/rollback-tx conn)
                 (throw error))
               (finally

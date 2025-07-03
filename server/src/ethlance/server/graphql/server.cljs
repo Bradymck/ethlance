@@ -70,10 +70,10 @@
                                               (.setHeader res "Access-Control-Allow-Origin", "*")
                                               (.json res (clj->js debug-data))))))
     (js-invoke server "applyMiddleware" (clj->js {:app app}))
-    (js-invoke app "listen" (clj->js opts)
-               (fn [url]
-                 (log/info "Graphql with express middleware server started...")
-                 (js->clj url :keywordize-keys true)))))
+    (js-invoke app "listen" (:port opts)
+               (fn []
+                 (log/info "Graphql with express middleware server started on port" (:port opts))))
+    {:app app :server server :port (:port opts)}))
 
 
 (defn stop

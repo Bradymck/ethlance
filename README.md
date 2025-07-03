@@ -16,7 +16,15 @@ change before final release*
 5. IPFS daemon
 6. Ethereum testnet (e.g. ganache)
 
-## Running the system
+## Running the systemAlso, having a summary that is created immediately before sending any messages needs to be a processing phase before the bot responds to users in chat. Right now, it's responding instantly. There should be a little bit of processing time and maybe some fake typing, if that's possible. That way, it will look as though the bot is thinking, typing, and then slowly responding to someone with a better response.
+
+If you can do that, it would be like the first phase: grabbing a summary of long-term memory from the player (if they've seen them before, sentiment, etc.). All the really important data about that user should be gathered so the bot can respond as if it's getting to know them and vice versa. I think that would be important.
+
+So, the phases would be:
+
+1. Long-term and short-term memory synthesis and data synthesis section.
+2. The prompt going to the large language model will need to include short-term memory, just showing the past several messages between everyone in chat. It's like a human reading chat—they've seen all of the past 10 messages or so, and then they're thinking about the community historically and contextually. This would give a more natural response.
+3. The final phase would be to actually evaluate its own response prior to writing one and optimize the prompt as much as possible.
 
 Clojure gets its missing dependencies automatically during compilation.
 Node.js dependencies need to be installed manually. There are 3 places for it:
