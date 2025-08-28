@@ -1,11 +1,71 @@
-# Ethlance V.2 (Newlance)
+# Ethlance V.2
 
 [![CircleCI](https://circleci.com/gh/district0x/ethlance/tree/newlance.svg?style=svg)](https://circleci.com/gh/district0x/ethlance/tree/newlance)
 
-*Ethlance Version 2 is Currently in Development and is subject to
-change before final release*
+## Version 2 (Newlance)
 
-# Development
+**Note:** Version 2 is currently in development and is subject to change before final release.
+
+## Development
+
+### Quick Start (True One-Command Setup)
+
+We provide a genuine one-command setup process for getting Ethlance running locally. It's completely automated and handles everything for you.
+
+#### Minimal Prerequisites
+
+Before starting, ensure you have these bare essentials:
+
+* **Git** - For cloning the repository
+
+Our setup script automatically installs or configures everything else, including Docker if needed.
+
+#### One-Command Installation and Management
+
+```bash
+# 1. Clone the repository
+git clone https://github.com/district0x/ethlance.git
+cd ethlance
+
+# 2. Make the script executable
+chmod +x ethlance.sh
+
+# 3. First-time setup
+./ethlance.sh setup
+
+# 4. Start the application
+./ethlance.sh start
+```
+
+That's it! The unified script handles everything:
+
+* Checks and installs missing prerequisites
+* Manages Docker services
+* Installs correct Node.js version
+* Configures all components
+* Deploys contracts (with auto-retry)
+* Handles port conflicts
+* Provides clear status updates
+
+#### Available Commands
+
+```bash
+./ethlance.sh setup    # First-time setup
+./ethlance.sh start    # Start all services
+./ethlance.sh stop     # Stop all services
+./ethlance.sh restart  # Restart all services
+```
+
+#### Logging
+
+All logs are saved in the `logs/` directory for easy debugging:
+
+* `logs/ganache.log` - Blockchain logs
+* `logs/config-server.log` - Configuration server logs
+* `logs/ui-compiler.log` - UI compilation logs
+* `logs/css.log` - CSS compilation logs
+
+For complete details, see our [Detailed Setup Guide](./DETAILED_SETUP_GUIDE.md) which walks through every step of the process.
 
 ## Prerequisites
 

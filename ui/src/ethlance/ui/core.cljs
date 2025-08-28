@@ -25,6 +25,9 @@
     [ethlance.ui.events]
     [ethlance.ui.pages]
     [ethlance.ui.subscriptions]
+    [ethlance.ui.patches.ethgasstation-override]
+    [ethlance.ui.patches.http-effects-patch] ;; Add HTTP effects patch
+    [district.ui.web3-tx.events] ;; Explicitly require our new events module
     [ethlance.ui.util.injection :as util.injection]
     [mount.core :as mount]
     [print.foo :include-macros true]
